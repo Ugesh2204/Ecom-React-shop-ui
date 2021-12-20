@@ -7,6 +7,7 @@ const Container = styled.div`
  height: 100vh;
  display:flex;
  position:relative;
+ overflow:hidden;
 `;
 const Arrow = styled.div`
     width: 50px;
@@ -26,6 +27,7 @@ const Arrow = styled.div`
     opacity:0.5;
 `;
 const Wrapper = styled.div`
+    display:flex;
 `;
 
 const Slide = styled.div`
@@ -33,6 +35,7 @@ const Slide = styled.div`
     height:100vh;
     display:flex;
     align-items:center;
+    background-color:#${props=>props.bg}
 `;
 
 const ImgContainer = styled.div`
@@ -45,8 +48,28 @@ height:80%;
 `;
 
 const InfoContainer = styled.div`
- flex: 1;
- padding: 50px;
+    flex: 1;
+    padding: 50px;
+   
+`;
+const Title = styled.h1`
+    font-size:78px;
+`;
+const Desc = styled.p`
+    margin:50px 0px;
+    font-size: 20px;
+    font-weight:500;
+    letter-spacing:3px;
+`;
+const Button = styled.button`
+    padding:10px;
+    font-size:20px;
+    background-color:transparent;
+    cursor: pointer;
+    &: hover {
+        background-color: pink;
+        color:#fff;
+    }
 `;
 
 const Slider = () => {
@@ -56,12 +79,39 @@ const Slider = () => {
                 <ArrowLeftOutlined/>
             </Arrow>
             <Wrapper>
-                <Slide>
+                <Slide bg="fcf1ed">
                     <ImgContainer>
                         <Image src="https://cdn.pixabay.com/photo/2017/02/27/02/32/pretty-girl-2101980_960_720.jpg"/>
                     </ImgContainer>
-                    <InfoContainer></InfoContainer>
+                    <InfoContainer>
+                        <Title>SUMMER SALE</Title>
+                        <Desc>DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS</Desc>
+                        <Button>SHOW NOW</Button>
+                    </InfoContainer>
                 </Slide>
+                <Slide>
+                    <ImgContainer>
+                        <Image src="https://cdn.pixabay.com/photo/2016/11/14/09/14/cat-1822979_960_720.jpg"/>
+                    </ImgContainer>
+                    <InfoContainer>
+                        <Title>WINTER SALE</Title>
+                        <Desc>DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS</Desc>
+                        <Button>SHOW NOW</Button>
+                    </InfoContainer>
+                </Slide>
+                <Slide>
+                    <ImgContainer>
+                        <Image src="https://cdn.pixabay.com/photo/2021/12/05/21/39/christmas-balls-6848782_960_720.jpg"/>
+                    </ImgContainer>
+                    <InfoContainer>
+                        <Title>POPULAR SALE</Title>
+                        <Desc>DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS</Desc>
+                        <Button>SHOW NOW</Button>
+                    </InfoContainer>
+                </Slide>
+
+                
+               
             </Wrapper>
             <Arrow direction="right">
                 <ArrowRightOutlined/>
