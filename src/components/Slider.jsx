@@ -1,6 +1,9 @@
-import React from 'react'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
+import React from 'react'
+import { useState } from "react";
 import styled from "styled-components";
+import {sliderItems} from "../data";
+
 
 const Container = styled.div`
  width: 100%;
@@ -20,14 +23,18 @@ const Arrow = styled.div`
     position:absolute;
     top:0;
     bottom:0;
-    left: ${props=> props.direction === "left" && "10px"};
-    right: ${props=> props.direction === "right" && "10px;"};
+    left: ${(props) => props.direction === "left" && "10px"};
+    right: ${(props) => props.direction === "right" && "10px;"};
     margin:auto;
     cursor:pointer;
     opacity:0.5;
+    z-index: 2;
 `;
 const Wrapper = styled.div`
+    height:100%;
     display:flex;
+    transition: all 1.5s ease;
+    transform:translateX(${(props) => props.slideIndex *  -100}vw);
 `;
 
 const Slide = styled.div`
@@ -53,7 +60,7 @@ const InfoContainer = styled.div`
    
 `;
 const Title = styled.h1`
-    font-size:78px;
+    font-size:70px;
 `;
 const Desc = styled.p`
     margin:50px 0px;
@@ -73,47 +80,44 @@ const Button = styled.button`
 `;
 
 const Slider = () => {
+    const [slideIndex, setSlideIndex] = useState(0);
+    const handleClick = (direction) => {
+
+        //if direction is left arrow
+        if(direction === "left"){
+            //updateslide index
+            //if is not first title make it minus 1
+            setSlideIndex(slideIndex > 0 ? slideIndex-1 : 2)
+        } else {
+            //if slider index small than 2 it mean we can go to the right
+            setSlideIndex(slideIndex < 2 ? slideIndex +1 : 0)
+        }
+
+    };
+    
+
     return (
         <Container>
-            <Arrow direction="left">
+            <Arrow direction="left" onClick={() => handleClick("left")}>
                 <ArrowLeftOutlined/>
             </Arrow>
-            <Wrapper>
-                <Slide bg="fcf1ed">
+            <Wrapper slideIndex={slideIndex}>
+               {sliderItems.map((item)=>(
+                    <Slide bg={item.bg}>
                     <ImgContainer>
-                        <Image src="https://cdn.pixabay.com/photo/2017/02/27/02/32/pretty-girl-2101980_960_720.jpg"/>
+                        <Image src={item.img} />
                     </ImgContainer>
                     <InfoContainer>
-                        <Title>SUMMER SALE</Title>
-                        <Desc>DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS</Desc>
+                        <Title>{item.title}</Title>
+                        <Desc>{item.desc}</Desc>
                         <Button>SHOW NOW</Button>
                     </InfoContainer>
-                </Slide>
-                <Slide>
-                    <ImgContainer>
-                        <Image src="https://cdn.pixabay.com/photo/2016/11/14/09/14/cat-1822979_960_720.jpg"/>
-                    </ImgContainer>
-                    <InfoContainer>
-                        <Title>WINTER SALE</Title>
-                        <Desc>DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS</Desc>
-                        <Button>SHOW NOW</Button>
-                    </InfoContainer>
-                </Slide>
-                <Slide>
-                    <ImgContainer>
-                        <Image src="https://cdn.pixabay.com/photo/2021/12/05/21/39/christmas-balls-6848782_960_720.jpg"/>
-                    </ImgContainer>
-                    <InfoContainer>
-                        <Title>POPULAR SALE</Title>
-                        <Desc>DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS</Desc>
-                        <Button>SHOW NOW</Button>
-                    </InfoContainer>
-                </Slide>
+                    </Slide>
 
-                
-               
+               ))}
+            
             </Wrapper>
-            <Arrow direction="right">
+            <Arrow direction="right" onClick={()=>handleClick("right")}>
                 <ArrowRightOutlined/>
             </Arrow>
         </Container>
